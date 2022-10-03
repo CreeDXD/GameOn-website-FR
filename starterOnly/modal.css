@@ -157,7 +157,8 @@ main {
   font-size: 16px;
 }
 
-.bground {
+.bground,
+.bground--thanks {
   display: none;
   position: fixed;
   z-index: 1;
@@ -167,6 +168,24 @@ main {
   width: 100%;
   overflow: auto;
   background-color: rgba(26, 39, 156, 0.4);
+}
+
+.bground--thanks{
+  display: none;
+  text-align: center;
+  
+}
+.content--thanks{
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+
+}
+.content--thanks input{
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
 }
 
 .content {
@@ -322,7 +341,8 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup,
+.btn-submit--thanks {
   background: #fe142f;
   display: block;
   margin: 0 auto;
@@ -333,6 +353,7 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
 /* custom select styles */
 .custom-select {
   position: relative;
