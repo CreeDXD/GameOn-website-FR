@@ -41,3 +41,72 @@ function launchThanks(e) {
   modalbg.style.display = "none";
   modalbgThanks.style.display = "flex";
 }
+
+ // verification prenom
+ const log = document.getElementById('prenom');
+
+ document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('input[name="first"]').onchange=changeEventHandlerPrenom;
+});
+
+function changeEventHandlerPrenom(event) {
+  var taille =  event.target.value.length;
+  if(taille < 3){
+    log.textContent = "prénom doit avoir plus de 3 lettres";
+  }
+  else{
+    log.textContent = "";
+  }
+}
+
+// verification nom
+const log1 = document.getElementById('nom');
+
+  document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('input[name="last"]').onchange=changeEventHandlerNom;
+});
+
+function changeEventHandlerNom(event) {
+  var taille =  event.target.value.length;
+  if(taille < 3){
+    log1.textContent = "nom doit avoir plus de 3 lettres";
+  }
+  else{
+    log1.textContent = "";
+  }
+}
+
+// verification nombre de tournois
+const log3 = document.getElementById('nbtournois')
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelector('input[name="quantity"]').onchange=changeEventHandlerQuantity;
+});
+
+function changeEventHandlerQuantity(event) {
+  const verif = isNaN(event.target.value);
+
+  if( verif === true ){
+    log3.textContent = "vous devez écrire des chiffres";
+  }
+  else{
+    log3.textContent = "";
+  }
+}
+
+// verification localisation tournoi
+const log2 = document.getElementById('localisation');
+log2.textContent = "vous devez choisir un tournoi";
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('input[name="location"]').onchange=changeEventHandler;
+});
+
+function changeEventHandler(event) {
+  alert(event);
+  if(!event.target.value){
+    log2.textContent = "vous devez choisir un tournoi";
+  }
+  else{
+    log2.textContent = "";
+  }
+}
