@@ -9,7 +9,7 @@
   padding: 0;
 }
 /* Landing Page */
-#prenom, #nom, #localisation, #nbtournois{
+#prenom, #nom, #localisation, #nbtournois,#conditionerreurmessage,#messageErreurEmail,#messageErreurDate{
   color: red;
   font-size: 12px;
 }

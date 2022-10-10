@@ -94,19 +94,70 @@ function changeEventHandlerQuantity(event) {
 }
 
 // verification localisation tournoi
-const log2 = document.getElementById('localisation');
-log2.textContent = "vous devez choisir un tournoi";
+const log2 = document.querySelectorAll('input[name="location"]');
+const dataform = document.getElementById('tournoislocal');
+localisation.textContent = "vous devez choisir un tournoi";
 
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('input[name="location"]').onchange=changeEventHandler;
-});
+dataform.addEventListener("change",changeEventHandlerLocalisation);
 
-function changeEventHandler(event) {
-  alert(event);
-  if(!event.target.value){
-    log2.textContent = "vous devez choisir un tournoi";
+function changeEventHandlerLocalisation() {
+  let selectedLocations;
+  for (const selectedLocation of log2){
+    if(selectedLocation.checked){
+      selectedLocations = log2.value;
+      break;
+    }
+    
+  }
+  if(selectedLocations != NaN){
+    localisation.textContent = `` ;
+  }
+}
+
+// verification condition des termes
+const condition = document.getElementById('checkbox1');
+const docCondition = document.getElementById('docCondition');
+const messageErreur = document.getElementById('conditionerreurmessage');
+
+docCondition.addEventListener("change",changeEventHandlerCondition);
+
+function changeEventHandlerCondition() {
+  if(condition.checked){
+    messageErreur.textContent = "";
   }
   else{
-    log2.textContent = "";
+    messageErreur.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
+  }
+}
+
+// verification email
+const email = document.getElementById('email');
+docEmail.addEventListener("change",changeEventHandlerEmail);
+const messageErreurEmail = document.getElementById('messageErreurEmail');
+
+function changeEventHandlerEmail(){
+  let verifEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email.value);
+  
+  if(verifEmail == true){
+    messageErreurEmail.textContent = "";
+  }
+  else{
+    messageErreurEmail.textContent = "Vous devez écrire une adresse email valide";
+  }
+}
+
+// verification date
+const docDate = document.getElementById('docDate');
+const date = document.getElementById('birthdate');
+docDate.addEventListener("change", changeEventHandlerDate);
+
+function changeEventHandlerDate(){
+  let verifDate = /^(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-(19|20)\\d\\d$/.test(date.value);
+  
+  if(verifDate == true){
+    messageErreurDate.textContent = "";
+  }
+  else{
+    messageErreurDate.textContent = "Vous devez écrire une adresse email valide";
   }
 }

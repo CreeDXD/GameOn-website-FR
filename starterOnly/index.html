@@ -86,6 +86,7 @@
                 <p id="nom"> </p>
               </div>
               <div
+              id="docEmail"
                 class="formData">
                 <label>E-mail</label><br>
                 <input
@@ -95,9 +96,11 @@
                   name="email"
                   required="required"
                 /><br>
+                <p id="messageErreurEmail"></p>
               </div>
               <div
-                class="formData">
+                class="formData"
+                id="docDate">
                 <label>Date de naissance</label><br>
                 <input
                   class="text-control"
@@ -106,6 +109,7 @@
                   name="birthdate"
                   required="required"
                 /><br>
+                <p id="messageErreurDate"></p>
               </div>
               <div
                 class="formData">
@@ -115,7 +119,8 @@
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData">
+                class="formData"
+                id="tournoislocal">
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -187,7 +192,8 @@
               </div>
 
               <div
-                class="formData">
+                class="formData"
+                id="docCondition">
                 <input
                   class="checkbox-input"
                   type="checkbox"
@@ -205,6 +211,7 @@
                   Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
+                <p id="conditionerreurmessage"></p>
               </div>
               <input
                 class="btn-submit"
