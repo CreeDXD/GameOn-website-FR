@@ -37,96 +37,146 @@ function closethanks() {
 }
 // launch modal thanks
 function launchThanks(e) {
+  let verifAll =[
+    verifPrenom,
+    verifNom,
+    verifEmail,
+    verifNbTournois,
+    verifLocalisation,
+    verifConditionTerm 
+  ];
+
+  let validationA;
+function verifAllFunction(){
+  for(let i of verifAll){
+    if( i != true){
+      validationA = false;
+      break;
+    }
+    else{
+       validationA = true;
+    }
+  }
+  return validationA;
+}
+  // let messageErreurAll = [
+  //   messageErreurPrenom.textContent,
+  //   messageErreurNom.textContent,
+  //   txtContentEmail,
+  //   messageErreurNbTournois.textContent,
+  //   messageErreurLocalisation.textContent,
+  //   messageErreurCondition.textContent
+  // ];
   e.preventDefault();
-  modalbg.style.display = "none";
-  modalbgThanks.style.display = "flex";
+  console.log(verifAllFunction());
+  if(verifAllFunction() != true){
+    
+  }else{
+    modalbg.style.display = "none";
+    modalbgThanks.style.display = "flex";
+  }
+    
 }
 
  // verification prenom
- const log = document.getElementById('prenom');
-
- document.addEventListener('DOMContentLoaded', function(){
-  document.querySelector('input[name="first"]').onchange=changeEventHandlerPrenom;
-});
-
-function changeEventHandlerPrenom(event) {
-  var taille =  event.target.value.length;
+ const docPrenom = document.querySelector('input[name="first"]');
+ const messageErreurPrenom = document.getElementById('messageErreurPrenom');
+ docPrenom.addEventListener("change", changeEventHandlerPrenom);
+let verifPrenom = false;
+function changeEventHandlerPrenom() {
+  var taille =  docPrenom.value.length;
   if(taille < 3){
-    log.textContent = "prénom doit avoir plus de 3 lettres";
+    messageErreurPrenom.textContent = "prénom doit avoir plus de 3 lettres";
+    verifPrenom = false;
   }
   else{
-    log.textContent = "";
+    messageErreurPrenom.textContent = "";
+    verifPrenom = true;
   }
 }
 
 // verification nom
-const log1 = document.getElementById('nom');
+const messageErreurNom = document.getElementById('messageErreurNom');
+const docNom = document.querySelector('input[name="last"]');
+  docNom.addEventListener("change", changeEventHandlerNom);
+let verifNom = false;
 
-  document.addEventListener('DOMContentLoaded', function(){
-  document.querySelector('input[name="last"]').onchange=changeEventHandlerNom;
-});
-
-function changeEventHandlerNom(event) {
-  var taille =  event.target.value.length;
+function changeEventHandlerNom() {
+  var taille =  docNom.value.length;
   if(taille < 3){
-    log1.textContent = "nom doit avoir plus de 3 lettres";
+    messageErreurNom.textContent = "nom doit avoir plus de 3 lettres";
+    verifNom = false;
   }
   else{
-    log1.textContent = "";
+    messageErreurNom.textContent = "";
+    verifNom = true;
   }
 }
 
 // verification nombre de tournois
-const log3 = document.getElementById('nbtournois')
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelector('input[name="quantity"]').onchange=changeEventHandlerQuantity;
-});
+const messageErreurNbTournois = document.getElementById('messageErreurNbTournois');
+const docNbTournois = document.querySelector('input[name="quantity"]');
+docNbTournois.addEventListener("change", changeEventHandlerQuantity);
+let verifNbTournois = false;
 
-function changeEventHandlerQuantity(event) {
-  const verif = isNaN(event.target.value);
+function changeEventHandlerQuantity() {
+  const verif = isNaN(docNbTournois.value);
 
   if( verif === true ){
-    log3.textContent = "vous devez écrire des chiffres";
+    messageErreurNbTournois.textContent = "vous devez écrire des chiffres";
   }
   else{
-    log3.textContent = "";
+    messageErreurNbTournois.textContent = "";
+    verifNbTournois = true;
   }
 }
 
 // verification localisation tournoi
-const log2 = document.querySelectorAll('input[name="location"]');
-const dataform = document.getElementById('tournoislocal');
-localisation.textContent = "vous devez choisir un tournoi";
+const nomDeVille = document.querySelectorAll('input[name="location"]');
+const docLocalisationTournois = document.getElementById('docLocalisationTournois');
+const messageErreurLocalisation = document.getElementById('messageErreurLocalisation');
+messageErreurLocalisation.textContent = "vous devez choisir un tournoi";
 
-dataform.addEventListener("change",changeEventHandlerLocalisation);
+let verifLocalisation = false;
+
+docLocalisationTournois.addEventListener("change",changeEventHandlerLocalisation);
 
 function changeEventHandlerLocalisation() {
+
   let selectedLocations;
-  for (const selectedLocation of log2){
+  for (const selectedLocation of nomDeVille){
     if(selectedLocation.checked){
-      selectedLocations = log2.value;
+      selectedLocations = nomDeVille.value;
+      messageErreurLocalisation.textContent = `` ;
+      verifLocalisation = true;
       break;
+    }
+    else{
+      verifLocalisation = false;
     }
     
   }
-  if(selectedLocations != NaN){
-    localisation.textContent = `` ;
-  }
+  return verifLocalisation;
 }
 
 // verification condition des termes
 const condition = document.getElementById('checkbox1');
 const docCondition = document.getElementById('docCondition');
-const messageErreur = document.getElementById('conditionerreurmessage');
+const messageErreurCondition = document.getElementById('messageErreurCondition');
+let verifConditionTerm = true;
 
 docCondition.addEventListener("change",changeEventHandlerCondition);
 
 function changeEventHandlerCondition() {
+
   if(condition.checked){
-    messageErreur.textContent = "";
+    messageErreurCondition.textContent = "";
+    return verifConditionTerm = true;
+
   }
   else{
-    messageErreur.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
+    messageErreurCondition.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
+    return verifConditionTerm = false;
   }
 }
 
@@ -134,30 +184,38 @@ function changeEventHandlerCondition() {
 const email = document.getElementById('email');
 docEmail.addEventListener("change",changeEventHandlerEmail);
 const messageErreurEmail = document.getElementById('messageErreurEmail');
-
+const txtContentEmail = messageErreurEmail.textContent;
+let verifEmail = false;
 function changeEventHandlerEmail(){
-  let verifEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email.value);
-  
-  if(verifEmail == true){
+  let regExEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email.value);
+  if(regExEmail == true){
     messageErreurEmail.textContent = "";
+    verifEmail = true;
   }
   else{
     messageErreurEmail.textContent = "Vous devez écrire une adresse email valide";
   }
 }
 
-// verification date
-const docDate = document.getElementById('docDate');
-const date = document.getElementById('birthdate');
-docDate.addEventListener("change", changeEventHandlerDate);
 
-function changeEventHandlerDate(){
-  let verifDate = /^(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])-(19|20)\\d\\d$/.test(date.value);
-  
-  if(verifDate == true){
-    messageErreurDate.textContent = "";
+
+
+let validationA;
+function verifAllFunction(){
+  for(let i of verifAll){
+    if( i != true){
+      break;
+    }
   }
-  else{
-    messageErreurDate.textContent = "Vous devez écrire une adresse email valide";
+  return validationA = false;
+}
+
+let validationB;
+function verifAllErreur(){
+  for(let i of messageErreurAll){
+    if( i != ""){
+      break;
+    }
   }
+  return validationB = false;
 }
