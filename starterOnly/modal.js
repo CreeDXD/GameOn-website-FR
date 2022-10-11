@@ -59,16 +59,8 @@ function verifAllFunction(){
   }
   return validationA;
 }
-  // let messageErreurAll = [
-  //   messageErreurPrenom.textContent,
-  //   messageErreurNom.textContent,
-  //   txtContentEmail,
-  //   messageErreurNbTournois.textContent,
-  //   messageErreurLocalisation.textContent,
-  //   messageErreurCondition.textContent
-  // ];
   e.preventDefault();
-  console.log(verifAllFunction());
+  console.log(verifEmail);
   if(verifAllFunction() != true){
     
   }else{
@@ -87,10 +79,12 @@ function changeEventHandlerPrenom() {
   var taille =  docPrenom.value.length;
   if(taille < 3){
     messageErreurPrenom.textContent = "prénom doit avoir plus de 3 lettres";
+    docPrenom.style.borderColor = "red" ; 
     verifPrenom = false;
   }
   else{
     messageErreurPrenom.textContent = "";
+    docPrenom.style.borderColor = "#ccc";
     verifPrenom = true;
   }
 }
@@ -105,10 +99,12 @@ function changeEventHandlerNom() {
   var taille =  docNom.value.length;
   if(taille < 3){
     messageErreurNom.textContent = "nom doit avoir plus de 3 lettres";
+    docNom.style.borderColor = "red" ;
     verifNom = false;
   }
   else{
     messageErreurNom.textContent = "";
+    docNom.style.borderColor = "#ccc";
     verifNom = true;
   }
 }
@@ -124,9 +120,12 @@ function changeEventHandlerQuantity() {
 
   if( verif === true ){
     messageErreurNbTournois.textContent = "vous devez écrire des chiffres";
+    docNbTournois.style.borderColor = "red" ;
   }
   else{
     messageErreurNbTournois.textContent = "";
+    docNbTournois.style.borderColor = "#ccc";
+
     verifNbTournois = true;
   }
 }
@@ -190,32 +189,12 @@ function changeEventHandlerEmail(){
   let regExEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email.value);
   if(regExEmail == true){
     messageErreurEmail.textContent = "";
+    email.style.borderColor = "#ccc";
     verifEmail = true;
   }
   else{
     messageErreurEmail.textContent = "Vous devez écrire une adresse email valide";
+    email.style.borderColor = "red";
+    verifEmail = false;
   }
-}
-
-
-
-
-let validationA;
-function verifAllFunction(){
-  for(let i of verifAll){
-    if( i != true){
-      break;
-    }
-  }
-  return validationA = false;
-}
-
-let validationB;
-function verifAllErreur(){
-  for(let i of messageErreurAll){
-    if( i != ""){
-      break;
-    }
-  }
-  return validationB = false;
 }
