@@ -12,15 +12,15 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelectorAll(".close");
-const submitBtn = document.querySelectorAll('.btn-submit');
+const submitBtn = document.querySelector('.btn-submit');
 const submitBtnThanks = document.querySelectorAll('.btn-submit--thanks');
 const modalbgThanks = document.querySelector(".bground--thanks");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.forEach((btn) => btn.addEventListener("click", closeModal));
-submitBtn.forEach((btn) => btn.addEventListener("click", launchThanks));
-submitBtnThanks.forEach((btn) => btn.addEventListener("click", closethanks));
+submitBtn.addEventListener("click", launchThanks);
+submitBtnThanks.forEach((btn) => btn.addEventListener("click", closeThanks));
 
 // launch modal form
 function launchModal() {
@@ -32,15 +32,17 @@ function closeModal() {
   modalbgThanks.style.display = "none";
 }
 //close modal thanks
-function closethanks() {
+function closeThanks() {
   modalbgThanks.style.display = "none";
 }
 // launch modal thanks
 function launchThanks(e) {
+  //verification que les champs/inputs sont valides
   let verifAll =[
     verifPrenom,
     verifNom,
     verifEmail,
+    verifDate,
     verifNbTournois,
     verifLocalisation,
     verifConditionTerm 
@@ -57,12 +59,16 @@ function verifAllFunction(){
        validationA = true;
     }
   }
+  console.log(verifAll);
+
   return validationA;
+
 }
   e.preventDefault();
-  console.log(verifEmail);
   if(verifAllFunction() != true){
-    
+    if(verifLocalisation == false){
+      messageErreurLocalisation.textContent = "Vous devez choisir un tournoi";
+    }
   }else{
     modalbg.style.display = "none";
     modalbgThanks.style.display = "flex";
@@ -77,8 +83,10 @@ function verifAllFunction(){
 let verifPrenom = false;
 function changeEventHandlerPrenom() {
   var taille =  docPrenom.value.length;
-  if(taille < 3){
-    messageErreurPrenom.textContent = "prénom doit avoir plus de 3 lettres";
+  const regExPrenom = /^[A-Za-z]+$/.test(docPrenom.value);
+  console.log(regExPrenom );
+  if(taille < 2 || regExPrenom == false){
+    messageErreurPrenom.textContent = "Votre prénom ne doit avoir que des lettres et au moins 2 lettres";
     docPrenom.style.borderColor = "red" ; 
     verifPrenom = false;
   }
@@ -97,8 +105,9 @@ let verifNom = false;
 
 function changeEventHandlerNom() {
   var taille =  docNom.value.length;
-  if(taille < 3){
-    messageErreurNom.textContent = "nom doit avoir plus de 3 lettres";
+  const regExNom = /^[A-Za-z]+$/.test(docNom.value);
+  if(taille < 2 || regExNom == false){
+    messageErreurNom.textContent = "Votre Nom ne doit avoir que des lettres et au moins 2 lettres";
     docNom.style.borderColor = "red" ;
     verifNom = false;
   }
@@ -116,17 +125,19 @@ docNbTournois.addEventListener("change", changeEventHandlerQuantity);
 let verifNbTournois = false;
 
 function changeEventHandlerQuantity() {
-  const verif = isNaN(docNbTournois.value);
+  const verif = /^[0-9]+$/.test(docNbTournois.value);
+  console.log(docNbTournois.value);
 
   if( verif === true ){
-    messageErreurNbTournois.textContent = "vous devez écrire des chiffres";
-    docNbTournois.style.borderColor = "red" ;
-  }
-  else{
     messageErreurNbTournois.textContent = "";
     docNbTournois.style.borderColor = "#ccc";
 
     verifNbTournois = true;
+    
+  }
+  else{
+    messageErreurNbTournois.textContent = "Vous devez écrire des chiffres";
+    docNbTournois.style.borderColor = "red" ;
   }
 }
 
@@ -134,7 +145,6 @@ function changeEventHandlerQuantity() {
 const nomDeVille = document.querySelectorAll('input[name="location"]');
 const docLocalisationTournois = document.getElementById('docLocalisationTournois');
 const messageErreurLocalisation = document.getElementById('messageErreurLocalisation');
-messageErreurLocalisation.textContent = "vous devez choisir un tournoi";
 
 let verifLocalisation = false;
 
@@ -151,6 +161,7 @@ function changeEventHandlerLocalisation() {
       break;
     }
     else{
+      messageErreurLocalisation.textContent = "Vous devez choisir un tournoi";
       verifLocalisation = false;
     }
     
@@ -197,4 +208,30 @@ function changeEventHandlerEmail(){
     email.style.borderColor = "red";
     verifEmail = false;
   }
+}
+//verification date de naissance
+const docDate = document.getElementById('docDate');
+const date = document.getElementById('birthdate');
+docDate.addEventListener("change", changeEventHandlerDate);
+const messageErreurDate = document.getElementById('messageErreurDate');
+const txtContentDate = messageErreurDate.textContent;
+let verifDate = false;
+function changeEventHandlerDate(){
+
+  let regExDate = /^(19[0-9]{2}|20[0-2][0-9])-(0[0-9]|1[0-2])-([0-2][0-9]|3[0-1])$/.test(date.value);
+
+  if(regExDate == true){
+    messageErreurDate.textContent = "";
+    date.style.borderColor = "#ccc";
+    verifDate = true;
+  }
+  else{
+    messageErreurDate.textContent = "Vous devez écrire une date de naissance valide";
+    date.style.borderColor = "red";
+    verifDate = false;
+  }
+  console.log(date.value);
+  console.log(verifDate);
+
+
 }

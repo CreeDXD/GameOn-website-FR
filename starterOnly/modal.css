@@ -103,6 +103,7 @@ img {
     display: block;
     margin-top: -15px;
   }
+  
 } 
 
 main {
@@ -181,7 +182,7 @@ main {
 }
 .content--thanks{
   display: flex;
-  height: 600px;
+  height: 770px;
   justify-content: center;
   align-items: center;
 
@@ -204,6 +205,7 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+  margin-top:70px;
 }
 
 .modal-body {
@@ -520,12 +522,12 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.3rem;
     white-space: normal;
   }
   .hero-text {
     width: unset;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .hero-img img {
     border-radius: 10px;
